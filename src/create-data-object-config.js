@@ -30,6 +30,19 @@ function value ({name, value}) {
 }
 
 /**
+ * Render a single value and but cast it to a string beforehand
+ * @param  {String} options.name Component name
+ * @param  {Mixed} options.value Component value
+ * @return {Object} Object defined with a name/value key pair
+ */
+function valueStringify ({name, value}) {
+  value = (value && value.toJS) ? value.toJS() : value
+  return {
+    [`${name}`]: JSON.stringify(value),
+  }
+}
+
+/**
  * Render an attr block
  * @param  {String} options.name Block name
  * @param  {Object} options.children Children of the block
@@ -64,6 +77,7 @@ export default function createDataObjectConfig () {
   const definition = {
     fields: {
       default: value,
+      richTextArea: valueStringify,
     },
     attr: attr,
     many: many,
