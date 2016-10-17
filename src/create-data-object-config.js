@@ -37,8 +37,10 @@ function value ({name, value}) {
  */
 function valueStringify ({name, value}) {
   value = (value && value.toJS) ? value.toJS() : value
+  // Stringify if it's defined
+  value = (value != null) ? JSON.stringify(value) : value
   return {
-    [`${name}`]: JSON.stringify(value),
+    [`${name}`]: value,
   }
 }
 
