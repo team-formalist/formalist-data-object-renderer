@@ -1,6 +1,6 @@
 {
   "name": "formalist-data-object-renderer",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Convert a Formalist AST into a plain old JavaScript object of its values.",
   "homepage": "https://github.com/icelab/formalist-data-object-renderer",
   "main": "lib/index.js",
@@ -29,7 +29,7 @@
     "lint": "eslint 'src/*.js' 'src/**/*.js' 'test/*.js' 'test/**/*.js'; exit 0"
   },
   "dependencies": {
-    "formalist-compose": "^0.0.1"
+    "formalist-compose": "^1.0.0"
   },
   "devDependencies": {
     "@f/is-function": "^1.1.1",
