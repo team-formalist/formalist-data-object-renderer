@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.0.2 2018-10-16
+
+* Allow `formalist-compose` dependency to bump to 3.x range.
+
 # v1.0.1 2017-03-12
 
 * Update `formalist-compose` dependency.
