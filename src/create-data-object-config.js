@@ -70,6 +70,21 @@ function many ({name, children}) {
   }
 }
 
+function childForm ({name, attributes, children}) {
+  children = (children.toJS) ? children.toJS() : children
+  return {
+    ['name']: name,
+    ['data']: children.reduce(objectReducer, {}),
+  }
+}
+
+function manyChildForms ({name, children}) {
+  children = (children.toJS) ? children.toJS() : children
+  return {
+    [`${name}`]: children,
+  }
+}
+
 /**
  * Create data object config
  * @return {Object} An object referencing the render functions above for each
@@ -86,6 +101,8 @@ export default function createDataObjectConfig () {
     compoundField: passThrough,
     group: passThrough,
     section: passThrough,
+    childForm: childForm,
+    manyChildForms: manyChildForms,
   }
 
   return definition
