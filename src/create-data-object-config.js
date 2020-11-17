@@ -86,6 +86,19 @@ function manyChildForms ({name, children}) {
 }
 
 /**
+ * Render an attr block
+ * @param  {String} options.name Block name
+ * @param  {Object} options.children Children of the block
+ * @return {Object} Object defined with a name/value key pair
+ */
+function formField ({name, children}) {
+  children = (children.toJS) ? children.toJS() : children
+  return {
+    [`${name}`]: children.reduce(objectReducer, {}),
+  }
+}
+
+/**
  * Create data object config
  * @return {Object} An object referencing the render functions above for each
  * component type
@@ -103,6 +116,7 @@ export default function createDataObjectConfig () {
     section: passThrough,
     childForm: childForm,
     manyChildForms: manyChildForms,
+    formField: formField,
   }
 
   return definition
