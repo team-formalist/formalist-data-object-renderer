@@ -4,8 +4,8 @@
  * @param  {Object} b
  * @return {Object} Merged combination of `a` and `b`
  */
-export function objectReducer (a, b) {
-  return Object.assign(a, b)
+export function objectReducer(a, b) {
+  return Object.assign(a, b);
 }
 
 /**
@@ -13,8 +13,8 @@ export function objectReducer (a, b) {
  * @param  {Mixed} options.children Children to render
  * @return {Object}
  */
-function passThrough ({children}) {
-  return children.reduce(objectReducer, {})
+function passThrough({ children }) {
+  return children.reduce(objectReducer, {});
 }
 
 /**
@@ -23,10 +23,10 @@ function passThrough ({children}) {
  * @param  {Mixed} options.value Component value
  * @return {Object} Object defined with a name/value key pair
  */
-function value ({name, value}) {
+function value({ name, value }) {
   return {
     [`${name}`]: value,
-  }
+  };
 }
 
 /**
@@ -35,13 +35,13 @@ function value ({name, value}) {
  * @param  {Mixed} options.value Component value
  * @return {Object} Object defined with a name/value key pair
  */
-function valueStringify ({name, value}) {
-  value = (value && value.toJS) ? value.toJS() : value
+function valueStringify({ name, value }) {
+  value = value && value.toJS ? value.toJS() : value;
   // Stringify if it's defined
-  value = (value != null) ? JSON.stringify(value) : value
+  value = value != null ? JSON.stringify(value) : value;
   return {
     [`${name}`]: value,
-  }
+  };
 }
 
 /**
@@ -50,11 +50,11 @@ function valueStringify ({name, value}) {
  * @param  {Object} options.children Children of the block
  * @return {Object} Object defined with a name/value key pair
  */
-function attr ({name, children}) {
-  children = (children.toJS) ? children.toJS() : children
+function attr({ name, children }) {
+  children = children.toJS ? children.toJS() : children;
   return {
     [`${name}`]: children.reduce(objectReducer, {}),
-  }
+  };
 }
 
 /**
@@ -63,11 +63,39 @@ function attr ({name, children}) {
  * @param  {Array} options.children Children of the block
  * @return {Object} Object defined with a name/value key pair
  */
-function many ({name, children}) {
-  children = (children.toJS) ? children.toJS() : children
+function many({ name, children }) {
+  children = children.toJS ? children.toJS() : children;
   return {
     [`${name}`]: children.map((c) => c.reduce(objectReducer, {})),
-  }
+  };
+}
+
+function childForm({ name, attributes, children }) {
+  children = children.toJS ? children.toJS() : children;
+  return {
+    ["name"]: name,
+    ["data"]: children.reduce(objectReducer, {}),
+  };
+}
+
+function manyForms({ name, children }) {
+  children = children.toJS ? children.toJS() : children;
+  return {
+    [`${name}`]: children,
+  };
+}
+
+/**
+ * Render an attr block
+ * @param  {String} options.name Block name
+ * @param  {Object} options.children Children of the block
+ * @return {Object} Object defined with a name/value key pair
+ */
+function formField({ name, children }) {
+  children = children.toJS ? children.toJS() : children;
+  return {
+    [`${name}`]: children.reduce(objectReducer, {}),
+  };
 }
 
 /**
@@ -75,7 +103,7 @@ function many ({name, children}) {
  * @return {Object} An object referencing the render functions above for each
  * component type
  */
-export default function createDataObjectConfig () {
+export default function createDataObjectConfig() {
   const definition = {
     fields: {
       default: value,
@@ -86,7 +114,10 @@ export default function createDataObjectConfig () {
     compoundField: passThrough,
     group: passThrough,
     section: passThrough,
-  }
+    childForm: childForm,
+    manyForms: manyForms,
+    formField: formField,
+  };
 
-  return definition
+  return definition;
 }
