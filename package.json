@@ -29,7 +29,7 @@
     "lint": "eslint 'src/*.js' 'src/**/*.js' 'test/*.js' 'test/**/*.js'; exit 0"
   },
   "dependencies": {
-    "formalist-compose": "^2.0.1 || ^3.0.1"
+    "formalist-compose": "^3.1.0"
   },
   "devDependencies": {
     "@f/is-function": "^1.1.1",
